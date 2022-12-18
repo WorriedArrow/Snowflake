@@ -12,8 +12,12 @@ module.exports = {
      * @param {CommandInteraction} interaction 
      */
 	async execute(interaction) {
-        const todaysHolidays = holidays.filter(({ date }) => date.split('-')[1] == moment().format('MM') && date.split("-")[2] == moment().format('DD'));
-        const holiday = todaysHolidays.sort(() => Math.random() - 0.5)[0]
-		await interaction.reply({ embeds: [ create('Today\'s Holiday', `One holiday happening in the US today is ${holiday.name}.`) ], ephemeral: true });
+      const todaysHolidays = holidays.filter(({ date }) => date.split('-')[1] == moment().format('MM') && date.split("-")[2] == moment().format('DD'));
+      const holiday = todaysHolidays.sort(() => Math.random() - 0.5)[0]
+      if(holiday) {
+		    await interaction.reply({ embeds: [ create('Today\'s Holiday', `One holiday happening in the US today is ${holiday.name}.`) ], ephemeral: true });
+      } else {
+		    await interaction.reply({ embeds: [ create('Today\'s Holiday', `Hmmm... I couldn't find any holidays happening in the US today. Check back tomorrow!`) ], ephemeral: true });
+      }
 	},
 };
